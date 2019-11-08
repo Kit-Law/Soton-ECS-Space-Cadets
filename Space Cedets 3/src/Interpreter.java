@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,14 +8,13 @@ public class Interpreter
 	private List<String> lines = new ArrayList<String>();
 	
 	public HashMap<String, Integer> vh = new HashMap<String, Integer>();
-	public HashMap<String, Function> fh = new HashMap<String, Function>();
 	
 	Interpreter(String fileDir) throws IOException
 	{
 		FileIO file = new FileIO(fileDir);
 		file.readLinesInto(lines);
 		
-		if (Formatter.formatCodeFile(lines, fh) == -1)
+		if (Formatter.formatCodeFile(lines) == -1)
 		{
 			System.out.println("Error - File not formatted correctly.");
 			
@@ -40,7 +38,7 @@ public class Interpreter
 	{
 		int blocks = 1;
 		
-		while (blocks > 0)							//Skips if bodes'
+		while (blocks > 0)
 		{
 			lineIndex++;
 			
@@ -179,7 +177,7 @@ public class Interpreter
 				
 				i = openBody(condition, i + 1);
 			}
-			else if (words[0].equals("endWhile"))									//change this to endwhile and use the interpretCondition methord
+			else if (words[0].equals("endWhile"))
 			{
 				if (whileCondition.isEmpty() && (bodyStartIndex == 0))
 				{
